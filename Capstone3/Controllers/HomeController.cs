@@ -36,10 +36,11 @@ namespace Capstone3.Controllers
             if (tasks.Count == 0)
             {
                 Session["Message"] = "There are no tasks. How about you add a few!";
+                ViewBag.Tasks = tasks;
                 return View();
             }
 
-            Session["Tasks"] = tasks;
+            ViewBag.Tasks = tasks;
 
             return View();
         }
@@ -82,12 +83,18 @@ namespace Capstone3.Controllers
         public ActionResult Task(Tasks t)
         {
             t.ID = Session["LoggedIn"].ToString();
-            
+            t.Completed = false;
             tasks.Add(t);
             ViewBag.Tasks = tasks;
             Session["Message"] = "";
             return RedirectToAction("Login");
 
+        }
+
+        public ActionResult CompletedTasks(Tasks t)
+        {
+            t.Completed = true;
+            return RedirectToAction("Login");
         }
         
     }
