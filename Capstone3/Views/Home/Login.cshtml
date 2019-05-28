@@ -1,0 +1,46 @@
+﻿@using Capstone3.Models;
+
+@{
+    ViewBag.Title = "Logged In";
+}
+
+
+<h2>You Are Logged In As <b>@Session["LoggedIn"]</b></h2>
+
+<h3>Welcome to your task list:</h3>
+@ViewBag.Tasks.Count
+
+@if (ViewBag.Tasks == null || ViewBag.Tasks.Count == 0)
+{
+    <h3 style="color:red">There are no tasks listed. How about you add some!</h3>
+}
+else
+{
+    foreach(Tasks t in ViewBag.Tasks)
+    {
+        <p>t.ID - t.Description - t.DueDate - t.Completed</p>
+    }
+}
+<p></p>
+<form class="form-inline" action="Task" method="post">
+    <label class="sr-only">Task</label>
+    <input type="text" class="form-control mb-2 mr-sm-2" name="Description" placeholder="Task" />
+
+    <label class="sr-only">Due Date</label>
+    <div class="input-group mb-2 mr-sm-2">
+        <input type="date" class="form-control" name="DueDate">
+    </div>
+
+    <div class="form-check mb-2 mr-sm-2">
+        <input class="form-check-input" type="checkbox">
+        <label class="form-check-label" for="inlineFormCheck">
+            Completed
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">Add Task</button>
+</form>
+
+<form action="Logout" method="post">
+    <button type="submit" class="btn btn-primary">Logout</button>
+</form>
